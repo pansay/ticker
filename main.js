@@ -24,17 +24,12 @@
 
 const apiEndpoint = 'https://api.coinmarketcap.com/v1/ticker/?limit=1000';
 
-let favoriteCoinsObjects = [];
-
 angular.module('coin', [])
   .controller('coin', ($scope, $http) => {
 
-    $scope.sorter = $scope.sorter = coin => -parseFloat(coin.percent_change_1h);
-
-    $scope.getImageUrl = coinId => `https://files.coinmarketcap.com/static/img/coins/64x64/${coinId}.png`;
-
-    $http.get(apiEndpoint).then(data => {
+    const processData = data => {
       let coins = data.data;
+      let favoriteCoinsObjects = [];
 
       coins.forEach(coin => {
         if (favoriteCoins.includes(coin.id)) {
@@ -45,7 +40,18 @@ angular.module('coin', [])
 
       $scope.coins = coins;
       $scope.favoriteCoins = favoriteCoinsObjects;
-    });
+    };
+
+    $scope.sorter = $scope.sorter = coin => -parseFloat(coin.percent_change_1h);
+
+    $scope.getImageUrl = coinId => `https://files.coinmarketcap.com/static/img/coins/64x64/${coinId}.png`;
+
+    $http.get(apiEndpoint).then(processData);
+    // refresh every 5 minutes (data refreshes every 5 minutes)
+    setInterval(() => {
+      $http.get(apiEndpoint).then(processData);
+    }, 1000 * 60 * 5);
+
   });
 
 
