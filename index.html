@@ -15,7 +15,9 @@
       <img ng-src="{{getImageUrl(coin.id)}}" width="30" alt="coin.name" class="image" />
       <div class="name" ng-bind="coin.name"></div>
       <div class="symbol" ng-bind="coin.symbol"></div>
-      <div class="price" ng-bind="(coin.price_usd|number) > 1 ? (coin.price_usd|currency:'$') : (coin.price_usd|currency:'$':5)">
+      <div class="price" ng-if="!((coin.price_usd|number:0) <= 10)" ng-bind="coin.price_usd|currency:'$':0">
+      </div>
+      <div class="price" ng-if="(coin.price_usd|number:0) <= 10" ng-bind="coin.price_usd|currency:'$':5">
       </div>
       <div class="deltas">
         <div
