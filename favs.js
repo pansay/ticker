@@ -9,4 +9,5 @@ const favoriteCoins = [
   'ellaism',
   'interstellar-holdings',
   'flash',
+  'ronpaulcoin',
 ];
