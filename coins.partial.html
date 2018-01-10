@@ -1,0 +1,32 @@
+<ul ng-repeat="coinsList in [favoriteCoins, coins] track by $index">
+  <li ng-repeat="coin in coinsList | orderBy: sorter track by coin.id">
+    <img ng-src="{{getImageUrl(coin.id)}}" width="30" alt="coin.name" class="image" />
+    <div class="name"><a ng-href="getCoinmarketcapUrl(coin.id)" ng-bind="coin.name"></a></div>
+    <div class="symbol" ng-bind="coin.symbol"></div>
+    <div class="price" ng-if="!((coin.price_usd|number:0) <= 10)" ng-bind="coin.price_usd|currency:'$':0">
+    </div>
+    <div class="price" ng-if="(coin.price_usd|number:0) <= 10" ng-bind="coin.price_usd|currency:'$':5">
+    </div>
+    <div class="deltas">
+      <div
+        class="delta"
+        ng-class="{ 'good': (coin.percent_change_1h|number) > 0, 'bad': (coin.percent_change_1h|number) < 0 }">
+        {{coin.percent_change_1h}}% (1h)
+      </div>
+      <div
+        class="delta"
+        ng-class="{ 'good': (coin.percent_change_24h|number) > 0, 'bad': (coin.percent_change_24h|number) < 0 }">
+        {{coin.percent_change_24h}}% (24h)
+      </div>
+      <div
+        class="delta"
+        ng-class="{ 'good': (coin.percent_change_7d|number) > 0, 'bad': (coin.percent_change_7d|number) < 0 }">
+        {{coin.percent_change_7d}}% (7d)
+      </div>
+    </div>
+    <div class="alerts">
+      <div ng-show="{{ (coin.percent_change_1h|number) > 20 }}" class="alert good">rush (1h)</div>
+      <div ng-show="{{ (coin.percent_change_7d|number) < -50 }}" class="alert bad">crash (7d)</div>
+    </div>
+  </li>
+</ul>
