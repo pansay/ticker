@@ -8,9 +8,15 @@
       </a>
     </div>
     <div class="symbol" ng-bind="coin.symbol"></div>
-    <div class="price" ng-if="!((coin.price_usd|number:0) <= 10)" ng-bind="coin.price_usd|currency:'$':0">
-    </div>
-    <div class="price" ng-if="(coin.price_usd|number:0) <= 10" ng-bind="coin.price_usd|currency:'$':5">
+    <div class="price_group">
+      <div class="price" ng-if="!((coin.price_usd|number:0) <= 10)" ng-bind="coin.price_usd|currency:'$':0">
+      </div>
+      <div class="price" ng-if="(coin.price_usd|number:0) <= 10" ng-bind="coin.price_usd|currency:'$':5">
+      </div>
+      <coin-details
+        ng-if="favoriteCoinsDetails[coin.id]"
+        coin="favoriteCoinsDetails[coin.id]"
+        price="coin.price_usd" />
     </div>
     <div class="deltas">
       <div

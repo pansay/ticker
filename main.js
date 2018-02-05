@@ -24,10 +24,10 @@
 
 const apiEndpoint = 'https://api.coinmarketcap.com/v1/ticker/?limit=1000';
 
-// refresh every 5 minutes (data refreshes every 5 minutes)
+// refresh every 5 minutes (source data refreshes every 5 minutes, no use making it more often)
 const interval = 1000 * 60 * 5;
 
-const controller = ($scope, $http) => {
+const coinsController = ($scope, $http) => {
   const processData = data => {
     let coins = data.data;
     let favoriteCoinsObjects = [];
@@ -41,6 +41,7 @@ const controller = ($scope, $http) => {
 
     $scope.coins = coins;
     $scope.favoriteCoins = favoriteCoinsObjects;
+    $scope.favoriteCoinsDetails = favoriteCoinsDetails;
   };
 
   const getData = () => {
@@ -55,10 +56,23 @@ const controller = ($scope, $http) => {
   setInterval(getData, interval);
 };
 
-const templateUrl = 'coins.partial.html';
+const coinDetailsController = () => {
+};
+
+const coinsTemplateUrl = 'coins.partial.html';
+const coinDetailsTemplateUrl = 'coinDetails.partial.html';
 
 angular.module('coin', [])
   .component('coins', {
-    controller,
-    templateUrl,
+    controller: coinsController,
+    templateUrl: coinsTemplateUrl,
+  })
+  .component('coinDetails', {
+    controller: coinDetailsController,
+    templateUrl: coinDetailsTemplateUrl,
+    bindings: {
+      coin: '<',
+      price: '<',
+    },
   });
+

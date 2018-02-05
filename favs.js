@@ -1,6 +1,7 @@
 const favoriteCoins = [
   'bitcoin',
   'bitcoin-cash',
+  'ronpaulcoin',
   'litecoin',
   'bytecoin-bcn',
   'dogecoin',
@@ -9,7 +10,13 @@ const favoriteCoins = [
   'ellaism',
   'interstellar-holdings',
   'flash',
-  'ronpaulcoin',
   '1337coin',
   'mywish',
 ];
+
+const favoriteCoinsDetails = {
+  bitcoin: {
+    boughtPrice: .55,
+    boughtQty: 100,
+  },
+};

@@ -1,0 +1,7 @@
+<div
+  class="coin_details">
+  bought {{$ctrl.coin.boughtQty}} @ {{$ctrl.coin.boughtPrice |currency:'$'}}<br />
+  worth: {{$ctrl.coin.boughtQty * $ctrl.price|currency:'$'}}<br />
+  growth: {{($ctrl.price/$ctrl.coin.boughtPrice) * 100 - 100}} %<br />
+  profit: {{($ctrl.coin.boughtQty * ($ctrl.price - $ctrl.coin.boughtPrice))|currency:'$'}}<br />
+</div>
